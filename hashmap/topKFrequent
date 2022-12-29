@@ -1,0 +1,11 @@
+
+class Solution(object):
+    def topKFrequent(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: List[int]
+        """
+        frequency = Counter(nums)
+        # use pythn heap data structure
+        return heapq.nlargest(k, frequency, key=frequency.get) 
