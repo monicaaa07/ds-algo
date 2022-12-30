@@ -1,0 +1,83 @@
+class Solution(object):
+    def isValidSudoku(self, board):
+        """
+        :type board: List[List[str]]
+        :rtype: bool
+        """
+        # https://leetcode.com/problems/valid-sudoku/
+        rows = {0:set(),1:set(),2:set(),3:set(),4:set(),5:set(),6:set(),7:set(),8:set()}
+        columns = {0:set(),1:set(),2:set(),3:set(),4:set(),5:set(),6:set(),7:set(),8:set()}
+        blocks = {0:set(),1:set(),2:set(),3:set(),4:set(),5:set(),6:set(),7:set(),8:set()}
+
+        for row in range(0,9):
+            for col in range(0,9):
+            
+                currentCellValue = board[row][col] 
+
+                if currentCellValue !=".":
+
+                    # check if row in row hashmap exites, if no create, if yes check if unique --> if no break & return else insert & continue
+                    if currentCellValue in rows[row]:
+                        return False
+                    else:
+                        rows[row].add(currentCellValue)
+                
+                    # check in columns hashmap
+                    if currentCellValue in columns[col]:
+                        return False
+                    else:
+                        columns[col].add(currentCellValue)
+
+
+                    # check in blocks hashmap
+                    if row in range(0,3) and col in range(0,3):
+                        print(row,col,currentCellValue)
+                        if currentCellValue in blocks[0]:
+                            return False
+                        else:
+                            blocks[0].add(currentCellValue)
+                    elif row in (0,1,2) and col in (3,4,5):
+                        print(row,col,currentCellValue)
+                        if currentCellValue in blocks[1]:
+                            return False
+                        else:
+                            blocks[1].add(currentCellValue)
+                    elif row in (0,1,2) and col in (6,7,8):
+                        if currentCellValue in blocks[2]:
+                            return False
+                        else:
+                            blocks[2].add(currentCellValue)
+                    elif row in (3,4,5) and col in (0,1,2):
+                        if currentCellValue in blocks[3]:
+                            return False
+                        else:
+                            blocks[3].add(currentCellValue)
+                    elif row in (3,4,5) and col in (3,4,5):
+                        if currentCellValue in blocks[4]:
+                            return False
+                        else:
+                            blocks[4].add(currentCellValue)
+                    elif row in (3,4,5) and col in (6,7,8):
+                        if currentCellValue in blocks[5]:
+                            return False
+                        else:
+                            blocks[5].add(currentCellValue)
+                    elif row in (6,7,8) and col in (0,2,1):
+                        if currentCellValue in blocks[6]:
+                            return False
+                        else:
+                            blocks[6].add(currentCellValue)
+                    elif row in (6,7,8) and col in (3,4,5):
+                        if currentCellValue in blocks[7]:
+                            return False
+                        else:
+                            blocks[7].add(currentCellValue)
+                    elif row in (6,7,8) and col in (6,7,8):
+                        if currentCellValue in blocks[8]:
+                            return False
+                        else:
+                            blocks[8].add(currentCellValue)
+        return True
+
+
+                
