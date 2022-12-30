@@ -1,0 +1,29 @@
+class Solution(object):
+    def productExceptSelf(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        # https://leetcode.com/problems/product-of-array-except-self/
+        # left products without current element
+        leftProd = 1
+        leftProducts = []
+        for num in nums:
+            leftProducts.append(leftProd)
+            leftProd *= num
+
+         # right products without current element
+        rightProd = 1
+        rightProducts = []
+        # Note how array is reversed using index
+        for num in nums[::-1]:
+            rightProducts.append(rightProd)
+            rightProd *= num
+
+        products = []
+        for i in range(0,len(nums)):
+            products.append(leftProducts[i]*rightProducts[-i-1])
+
+        return products
+
+        
