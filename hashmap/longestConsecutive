@@ -1,0 +1,22 @@
+class Solution(object):
+    def longestConsecutive(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        https://leetcode.com/problems/longest-consecutive-sequence/description/
+        """
+        longestSeq = 0
+        currSeq  = 0
+        numSet = set(nums)
+        for n in numSet:
+            if n-1 not in numSet:
+                currNum = n
+                currSeq =1
+                
+                while currNum+1 in numSet:
+                    currNum += 1
+                    currSeq += 1
+        
+            longestSeq = max(currSeq,longestSeq)
+
+        return longestSeq
