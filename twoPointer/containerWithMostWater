@@ -1,0 +1,16 @@
+class Solution:
+    def maxArea(self, height: List[int]) -> int:
+    #https://leetcode.com/problems/container-with-most-water/description/
+        start = 0
+        end = len(height) - 1
+        currentArea = (end - start) * min(height[start],height[end])
+        maxArea = currentArea
+        flag = 0
+        while start < end:
+            currentArea = (end - start) * min(height[start],height[end])
+            maxArea = max(currentArea,maxArea)
+            if height[start]< height[end]:
+                start = start + 1
+            else:
+                end = end - 1
+        return maxArea
