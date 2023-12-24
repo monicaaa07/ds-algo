@@ -1,0 +1,21 @@
+import heapq
+class Solution:
+    def minMeetingRooms(self, intervals: List[List[int]]) -> int:
+        if len(intervals) == 0:
+            return 0
+        intervals.sort(key=lambda x: x[0])
+        max_room = 1
+        end_time_heap = [intervals[0][1]]
+        heapq.heapify(end_time_heap)
+        for i in intervals[1:]:
+            top_end_time = end_time_heap[0]
+            if i[0] >= top_end_time and i[1] > top_end_time:
+                heapq.heappop(end_time_heap)
+                heapq.heappush(end_time_heap,i[1])
+                max_room = max(max_room, len(end_time_heap))
+            
+            else:
+                heapq.heappush(end_time_heap,i[1])
+                max_room = max(max_room, len(end_time_heap))
+        return max_room
+            
